@@ -1,4 +1,4 @@
-module versionhelper
+module version
 
 import regex
 

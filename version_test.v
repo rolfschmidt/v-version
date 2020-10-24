@@ -1,4 +1,4 @@
-module versionhelper
+module version
 
 fn test_eq() {
     assert eq('1.0.0', '1.0')                  == true
