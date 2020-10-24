@@ -5,6 +5,6 @@ Module {
     repo_url: 'https://github.com/rolfschmidt/v-version'
     vcs: 'git'
     tags: []
-    description: 'Compare and detailed information about version strings.'
+    description: 'Compare and show information about version strings.'
     license: 'MIT'
 }
