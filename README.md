@@ -31,6 +31,21 @@ v1.0
 stable-1.0
 ```
 
+### Suffix format
+
+It supports greek numbers and there is also a fallback for generic strings.
+
+```
+# greek style (alpha, beta, gamma, delta, epsilon, zeta, eta, theta, iota, kappa, lambda, mu, nu, xi, omicron, pi, rho, sigma, tau, upsilon, phi, chi, psi, omega)
+version.lt('1.1.1-beta1', '1.1.1-delta1') // true
+version.lt('1.1.1-gamma1', '1.1.1-delta1') // true
+version.lt('1.1.1-omega', '1.1.1-delta1') // false
+
+# generic
+version.lt('1.1.1-aaa1', '1.1.1-bbb1') // true
+version.lt('1.1.1-zzz1', '1.1.1-bbb1') // false
+```
+
 ## Usage
 
 ```v
