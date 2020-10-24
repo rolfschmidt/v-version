@@ -2,6 +2,15 @@
 
 This module provides the functionality to parse version strings and compare them.
 
+## Installation
+
+You can install this module using `v install rolfschmidt.version`, and
+then use it with `import rolfschmidt.version` .
+
+When there are updates, you can update with `v update rolfschmidt.version` .
+
+You can also just run `v install rolfschmidt.version` again.
+
 ## Formats
 
 These are the supported version formats:
