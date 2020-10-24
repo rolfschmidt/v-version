@@ -7,7 +7,7 @@ This module provides the functionality to parse version strings and compare them
 These are the supported version formats:
 
 ```
-(ignore prefix)(major).(minor).(patch)(alpha)(alphapatch)
+(ignored prefix)(major).(minor).(patch)(suffix)(suffixpatch)
 1
 1.0
 1.0.0
@@ -58,8 +58,8 @@ fn main() {
         major: 1
         minor: 1
         patch: 1
-        alpha: 0
-        alphapatch: 0
+        suffix: 0
+        suffixpatch: 0
     }
 
     */

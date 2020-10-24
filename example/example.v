@@ -31,8 +31,8 @@ fn main() {
         major: 1
         minor: 1
         patch: 1
-        alpha: 0
-        alphapatch: 0
+        suffix: 0
+        suffixpatch: 0
     }
 
     */

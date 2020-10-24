@@ -8,8 +8,8 @@ pub mut:
     major int
     minor int
     patch int
-    alpha int
-    alphapatch int
+    suffix int
+    suffixpatch int
 }
 
 pub fn eq(value1 string, value2 string) bool {
@@ -68,8 +68,8 @@ pub fn parse(version string) Version {
         major:      0
         minor:      0
         patch:      0
-        alpha:      0
-        alphapatch: 0
+        suffix:      0
+        suffixpatch: 0
     }
     for gi := 0; gi < re.groups.len; gi += 2 {
         if re.groups[gi] < 0 {
@@ -81,8 +81,8 @@ pub fn parse(version string) Version {
             0 { result.major = part.int() }
             2 { result.minor = part.int() }
             4 { result.patch = part.int() }
-            6 { result.alpha = part.hash() }
-            8 { result.alphapatch = part.int() }
+            6 { result.suffix = part.hash() }
+            8 { result.suffixpatch = part.int() }
             else {}
         }
     }
@@ -91,28 +91,28 @@ pub fn parse(version string) Version {
 }
 
 pub fn (version Version) eq(cmp_version Version) bool {
-    return version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha == cmp_version.alpha && version.alphapatch == cmp_version.alphapatch
+    return version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix == cmp_version.suffix && version.suffixpatch == cmp_version.suffixpatch
 }
 
 pub fn (version Version) ne(cmp_version Version) bool {
-    return version.major != cmp_version.major || version.minor != cmp_version.minor || version.patch != cmp_version.patch || version.alpha != cmp_version.alpha || version.alphapatch != cmp_version.alphapatch
+    return version.major != cmp_version.major || version.minor != cmp_version.minor || version.patch != cmp_version.patch || version.suffix != cmp_version.suffix || version.suffixpatch != cmp_version.suffixpatch
 }
 
 pub fn (version Version) lt(cmp_version Version) bool {
     if version.major < cmp_version.major { return true }
     if version.major == cmp_version.major && version.minor < cmp_version.minor { return true }
     if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch < cmp_version.patch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha < cmp_version.alpha { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha == cmp_version.alpha && version.alphapatch < cmp_version.alphapatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix < cmp_version.suffix { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix == cmp_version.suffix && version.suffixpatch < cmp_version.suffixpatch { return true }
     return false
 }
 
 pub fn (version Version) le(cmp_version Version) bool {
-    if version.major <= cmp_version.major && version.minor <= cmp_version.minor && version.patch <= cmp_version.patch && version.alpha <= cmp_version.alpha && version.alphapatch <= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor <= cmp_version.minor && version.patch <= cmp_version.patch && version.alpha <= cmp_version.alpha && version.alphapatch <= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch <= cmp_version.patch && version.alpha <= cmp_version.alpha && version.alphapatch <= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha <= cmp_version.alpha && version.alphapatch <= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha == cmp_version.alpha && version.alphapatch <= cmp_version.alphapatch { return true }
+    if version.major <= cmp_version.major && version.minor <= cmp_version.minor && version.patch <= cmp_version.patch && version.suffix <= cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor <= cmp_version.minor && version.patch <= cmp_version.patch && version.suffix <= cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch <= cmp_version.patch && version.suffix <= cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix <= cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix == cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch { return true }
     return false
 }
 
@@ -120,16 +120,16 @@ pub fn (version Version) gt(cmp_version Version) bool {
     if version.major > cmp_version.major { return true }
     if version.major == cmp_version.major && version.minor > cmp_version.minor { return true }
     if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch > cmp_version.patch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha > cmp_version.alpha { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha == cmp_version.alpha && version.alphapatch > cmp_version.alphapatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix > cmp_version.suffix { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix == cmp_version.suffix && version.suffixpatch > cmp_version.suffixpatch { return true }
     return false
 }
 
 pub fn (version Version) ge(cmp_version Version) bool {
-    if version.major >= cmp_version.major && version.minor >= cmp_version.minor && version.patch >= cmp_version.patch && version.alpha >= cmp_version.alpha && version.alphapatch >= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor >= cmp_version.minor && version.patch >= cmp_version.patch && version.alpha >= cmp_version.alpha && version.alphapatch >= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch >= cmp_version.patch && version.alpha >= cmp_version.alpha && version.alphapatch >= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha >= cmp_version.alpha && version.alphapatch >= cmp_version.alphapatch { return true }
-    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.alpha == cmp_version.alpha && version.alphapatch >= cmp_version.alphapatch { return true }
+    if version.major >= cmp_version.major && version.minor >= cmp_version.minor && version.patch >= cmp_version.patch && version.suffix >= cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor >= cmp_version.minor && version.patch >= cmp_version.patch && version.suffix >= cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch >= cmp_version.patch && version.suffix >= cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix >= cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch { return true }
+    if version.major == cmp_version.major && version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix == cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch { return true }
     return false
 }
