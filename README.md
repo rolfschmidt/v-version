@@ -6,7 +6,7 @@ This module provides the functionality to parse version strings and compare them
 
 These are the supported version formats:
 
-```v
+```
 (ignore prefix)(major).(minor).(patch)(alpha)(alphapatch)
 1
 1.0
