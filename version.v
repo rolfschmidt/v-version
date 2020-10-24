@@ -148,29 +148,26 @@ pub fn (version Version) lt(cmp_version Version) bool {
 }
 
 pub fn (version Version) le(cmp_version Version) bool {
-	if version.major <= cmp_version.major &&
-		version.minor <= cmp_version.minor && version.patch <= cmp_version.patch && version.suffix <=
-		cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch {
+	if version.eq(cmp_version) {
+		return true
+	}
+	if version.major < cmp_version.major {
+		return true
+	}
+	if version.major == cmp_version.major && version.minor < cmp_version.minor {
 		return true
 	}
 	if version.major == cmp_version.major &&
-		version.minor <= cmp_version.minor && version.patch <= cmp_version.patch && version.suffix <=
-		cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch {
+		version.minor == cmp_version.minor && version.patch < cmp_version.patch {
 		return true
 	}
 	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch <= cmp_version.patch && version.suffix <=
-		cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch {
-		return true
-	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix <=
-		cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch {
+		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix < cmp_version.suffix {
 		return true
 	}
 	if version.major == cmp_version.major &&
 		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix ==
-		cmp_version.suffix && version.suffixpatch <= cmp_version.suffixpatch {
+		cmp_version.suffix && version.suffixpatch < cmp_version.suffixpatch {
 		return true
 	}
 	return false
@@ -200,24 +197,21 @@ pub fn (version Version) gt(cmp_version Version) bool {
 }
 
 pub fn (version Version) ge(cmp_version Version) bool {
-	if version.major >= cmp_version.major &&
-		version.minor >= cmp_version.minor && version.patch >= cmp_version.patch && version.suffix >=
-		cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch {
+	if version.eq(cmp_version) {
+		return true
+	}
+	if version.major > cmp_version.major {
+		return true
+	}
+	if version.major == cmp_version.major && version.minor > cmp_version.minor {
 		return true
 	}
 	if version.major == cmp_version.major &&
-		version.minor >= cmp_version.minor && version.patch >= cmp_version.patch && version.suffix >=
-		cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch {
+		version.minor == cmp_version.minor && version.patch > cmp_version.patch {
 		return true
 	}
 	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch >= cmp_version.patch && version.suffix >=
-		cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch {
-		return true
-	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix >=
-		cmp_version.suffix && version.suffixpatch >= cmp_version.suffixpatch {
+		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix > cmp_version.suffix {
 		return true
 	}
 	if version.major == cmp_version.major &&
