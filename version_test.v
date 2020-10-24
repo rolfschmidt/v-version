@@ -30,6 +30,10 @@ fn test_lt() {
 	assert lt('1.1.2-alpha1', '1.1.1-alpha1') == false
 	assert lt('1.2.1-alpha1', '1.1.1-alpha1') == false
 	assert lt('2.1.1-alpha1', '1.1.1-alpha1') == false
+	assert lt('1.1.1-beta1', '1.1.1-delta1') == true
+	assert lt('1.1.1-gamma1', '1.1.1-delta1') == true
+	assert lt('1.1.1-aaa1', '1.1.1-bbb1') == true
+	assert lt('1.1.1-zzz1', '1.1.1-bbb1') == false
 }
 
 fn test_le() {

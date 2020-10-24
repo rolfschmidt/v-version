@@ -48,8 +48,38 @@ pub fn ge(value1 string, value2 string) bool {
 	return v1.ge(v2)
 }
 
+pub fn suffix(value string) int {
+	return match value {
+		'alpha' { 1 }
+		'beta' { 2 }
+		'gamma' { 3 }
+		'delta' { 4 }
+		'epsilon' { 5 }
+		'zeta' { 6 }
+		'eta' { 7 }
+		'theta' { 8 }
+		'iota' { 9 }
+		'kappa' { 10 }
+		'lambda' { 11 }
+		'mu' { 12 }
+		'nu' { 13 }
+		'xi' { 14 }
+		'omicron' { 15 }
+		'pi' { 16 }
+		'rho' { 17 }
+		'sigma' { 18 }
+		'tau' { 19 }
+		'upsilon' { 20 }
+		'phi' { 21 }
+		'chi' { 22 }
+		'psi' { 23 }
+		'omega' { 24 }
+		else { value.hash() }
+	}
+}
+
 pub fn parse(version string) Version {
-	query := r'^(?:[a-zA-Z]|-|_)*(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:[-_]?([a-zA-Z])[a-zA-Z]*(\d+)?)?$'
+	query := r'^(?:[a-zA-Z]|-|_)*(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:[-_]?([a-zA-Z]*)(\d+)?)?$'
 	mut re := regex.regex_opt(query) or {
 		panic(err)
 	}
@@ -74,7 +104,7 @@ pub fn parse(version string) Version {
 			0 { result.major = part.int() }
 			2 { result.minor = part.int() }
 			4 { result.patch = part.int() }
-			6 { result.suffix = part.hash() }
+			6 { result.suffix = suffix(part) }
 			8 { result.suffixpatch = part.int() }
 			else {}
 		}

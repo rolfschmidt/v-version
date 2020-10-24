@@ -55,7 +55,7 @@ fn main() {
     // version.lt(version1, version2) == true
     // version.le(version1, version2) == true
 
-    version_details := version.parse('1.1.1')
+    version_details := version.parse('1.1.1-beta3')
     println(version_details)
 
     /*
@@ -67,8 +67,8 @@ fn main() {
         major: 1
         minor: 1
         patch: 1
-        suffix: 0
-        suffixpatch: 0
+        suffix: 2
+        suffixpatch: 3
     }
 
     */
