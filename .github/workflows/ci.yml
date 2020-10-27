@@ -21,7 +21,7 @@ jobs:
     - name: Build tests
       run: |
         cd ./vlib/version/
-        v run version_test.v
+        v test version_test.v
 
   macos:
     runs-on: macos-latest
@@ -41,7 +41,7 @@ jobs:
     - name: Build tests
       run: |
         cd ./vlib/version/
-        v run version_test.v
+        v test version_test.v
 
   windows-msvc:
     runs-on: windows-latest
@@ -61,4 +61,4 @@ jobs:
     # Don't move applying V directory to PATH, to other steps
     # otherwise this step and V script won't see V executable.
     - name: Build tests
-      run: .\v.exe run .\vlib\version\version_test.v
+      run: .\v.exe test .\vlib\version\version_test.v
