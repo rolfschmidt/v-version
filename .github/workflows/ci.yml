@@ -1,0 +1,64 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout V
+      uses: actions/checkout@v2
+      with:
+        repository: vlang/v
+    - name: Checkout version
+      uses: actions/checkout@v2
+      with:
+        path: vlib/version
+    - name: Build V
+      run: |
+        make
+        sudo ./v symlink
+    - name: Build tests
+      run: |
+        cd ./vlib/version/
+        v run version_test.v
+
+  macos:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout V
+      uses: actions/checkout@v2
+      with:
+        repository: vlang/v
+    - name: Checkout version
+      uses: actions/checkout@v2
+      with:
+        path: vlib/version
+    - name: Build V
+      run: |
+        make
+        ./v symlink
+    - name: Build tests
+      run: |
+        cd ./vlib/version/
+        v run version_test.v
+
+  windows-msvc:
+    runs-on: windows-latest
+    env:
+        VFLAGS: -cc msvc
+    steps:
+    - name: Checkout V
+      uses: actions/checkout@v2
+      with:
+        repository: vlang/v
+    - name: Checkout version
+      uses: actions/checkout@v2
+      with:
+        path: vlib/version
+    - name: Build V
+      run: .\make.bat -msvc
+    # Don't move applying V directory to PATH, to other steps
+    # otherwise this step and V script won't see V executable.
+    - name: Build tests
+      run: .\v.exe run .\vlib\version\version_test.v
