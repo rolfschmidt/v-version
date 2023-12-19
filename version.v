@@ -78,17 +78,15 @@ pub fn suffix(value string) int {
 	}
 }
 
-pub fn parse(version string) Version {
+pub fn parse(version_string string) Version {
 	query := r'^(?:[a-zA-Z]|-|_)*(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:[-_]?([a-zA-Z]*)(\d+)?)?$'
-	mut re := regex.regex_opt(query) or {
-		panic(err)
-	}
-	start, end := re.match_string(version)
+	mut re := regex.regex_opt(query) or { panic(err) }
+	start, _ := re.match_string(version_string)
 	if start == -1 {
-		panic('Invalid version format! $version')
+		panic('Invalid version format! ${version_string}')
 	}
 	mut result := Version{
-		value: version
+		value: version_string
 		major: 0
 		minor: 0
 		patch: 0
@@ -99,7 +97,7 @@ pub fn parse(version string) Version {
 		if re.groups[gi] < 0 {
 			continue
 		}
-		part := '${version[re.groups[gi]..re.groups[gi + 1]]}'
+		part := '${version_string[re.groups[gi]..re.groups[gi + 1]]}'
 		match gi {
 			0 { result.major = part.int() }
 			2 { result.minor = part.int() }
@@ -112,74 +110,68 @@ pub fn parse(version string) Version {
 	return result
 }
 
-pub fn (version Version) eq(cmp_version Version) bool {
-	return version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix ==
-		cmp_version.suffix && version.suffixpatch == cmp_version.suffixpatch
+pub fn (self Version) eq(other Version) bool {
+	return self.major == other.major && self.minor == other.minor && self.patch == other.patch
+		&& self.suffix == other.suffix && self.suffixpatch == other.suffixpatch
 }
 
-pub fn (version Version) ne(cmp_version Version) bool {
-	return version.major != cmp_version.major ||
-		version.minor != cmp_version.minor || version.patch != cmp_version.patch || version.suffix !=
-		cmp_version.suffix || version.suffixpatch != cmp_version.suffixpatch
+pub fn (self Version) ne(other Version) bool {
+	return self.major != other.major || self.minor != other.minor || self.patch != other.patch
+		|| self.suffix != other.suffix || self.suffixpatch != other.suffixpatch
 }
 
-pub fn (version Version) lt(cmp_version Version) bool {
-	if version.major < cmp_version.major {
+pub fn (self Version) lt(other Version) bool {
+	if self.major < other.major {
 		return true
 	}
-	if version.major == cmp_version.major && version.minor < cmp_version.minor {
+	if self.major == other.major && self.minor < other.minor {
 		return true
 	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch < cmp_version.patch {
+	if self.major == other.major && self.minor == other.minor && self.patch < other.patch {
 		return true
 	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix < cmp_version.suffix {
+	if self.major == other.major && self.minor == other.minor && self.patch == other.patch
+		&& self.suffix < other.suffix {
 		return true
 	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix ==
-		cmp_version.suffix && version.suffixpatch < cmp_version.suffixpatch {
+	if self.major == other.major && self.minor == other.minor && self.patch == other.patch
+		&& self.suffix == other.suffix && self.suffixpatch < other.suffixpatch {
 		return true
 	}
 	return false
 }
 
-pub fn (version Version) gt(cmp_version Version) bool {
-	if version.major > cmp_version.major {
+pub fn (self Version) gt(other Version) bool {
+	if self.major > other.major {
 		return true
 	}
-	if version.major == cmp_version.major && version.minor > cmp_version.minor {
+	if self.major == other.major && self.minor > other.minor {
 		return true
 	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch > cmp_version.patch {
+	if self.major == other.major && self.minor == other.minor && self.patch > other.patch {
 		return true
 	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix > cmp_version.suffix {
+	if self.major == other.major && self.minor == other.minor && self.patch == other.patch
+		&& self.suffix > other.suffix {
 		return true
 	}
-	if version.major == cmp_version.major &&
-		version.minor == cmp_version.minor && version.patch == cmp_version.patch && version.suffix ==
-		cmp_version.suffix && version.suffixpatch > cmp_version.suffixpatch {
+	if self.major == other.major && self.minor == other.minor && self.patch == other.patch
+		&& self.suffix == other.suffix && self.suffixpatch > other.suffixpatch {
 		return true
 	}
 	return false
 }
 
-pub fn (version Version) le(cmp_version Version) bool {
-	if version.eq(cmp_version) {
+pub fn (self Version) le(other Version) bool {
+	if self.eq(other) {
 		return true
 	}
-	return version.lt(cmp_version)
+	return self.lt(other)
 }
 
-pub fn (version Version) ge(cmp_version Version) bool {
-	if version.eq(cmp_version) {
+pub fn (self Version) ge(other Version) bool {
+	if self.eq(other) {
 		return true
 	}
-	return version.gt(cmp_version)
+	return self.gt(other)
 }

@@ -1,28 +1,26 @@
 import version
 
 fn main() {
+	version1 := '1.1.1'
+	version2 := '1.1.2'
 
-    version1 := '1.1.1'
-    version2 := '1.1.2'
+	if version.eq(version1, version2) {
+		println('versions are equal')
+	} else {
+		println('version are not equal')
+	}
 
-    if version.eq(version1, version2) {
-        println("versions are equal")
-    }
-    else {
-        println("version are not equal")
-    }
+	// version.eq(version1, version2) == false
+	// version.ne(version1, version2) == true
+	// version.gt(version1, version2) == false
+	// version.ge(version1, version2) == false
+	// version.lt(version1, version2) == true
+	// version.le(version1, version2) == true
 
-    // version.eq(version1, version2) == false
-    // version.ne(version1, version2) == true
-    // version.gt(version1, version2) == false
-    // version.ge(version1, version2) == false
-    // version.lt(version1, version2) == true
-    // version.le(version1, version2) == true
+	version_details := version.parse('1.1.1')
+	println(version_details)
 
-    version_details := version.parse('1.1.1')
-    println(version_details)
-
-    /*
+	/*
 
     output:
 
